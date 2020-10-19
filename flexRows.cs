@@ -13,12 +13,12 @@ namespace charBuild
     {
 
         protected Label NameLabel { get; set; }
-        private TextBox NormalDiceBox { get; set; }
-        private TextBox HardDiceBox { get; set; }
-        private TextBox WiggleDiceBox { get; set; }
-        private TextBox CostBox { get; set; }
+        protected TextBox NormalDiceBox { get; set; }
+        protected TextBox HardDiceBox { get; set; }
+        protected TextBox WiggleDiceBox { get; set; }
+        protected TextBox CostBox { get; set; }
 
-        private int BaseCost { get; set; }
+        protected int BaseCost { get; set; }
         public string RowName { get; private set; }
 
         public genericRow(string _name, Point _location, TabPage _tab, int _baseCost, int _nd=0, int _hd=0, int _wd=0, int _nameWidth=130, int _diceBoxWidth=20, int _costBoxWidth=30)
@@ -123,8 +123,13 @@ namespace charBuild
     class customSkillRow : skillRow
     {
         TextBox CustomName;
+        Button DeleteButton;
+
+        //event notfication
+
         public customSkillRow(string _name, Point _location, TabPage _tab, int _baseCost = 2, int _nd = 2, int _hd = 0, int _wd = 0, int _nameWidth = 130, int _diceBoxWidth = 20, int _costBoxWidth = 30) : base(_name, _location, _tab, _baseCost, _nd, _hd, _wd, _nameWidth, _diceBoxWidth, _costBoxWidth)
         {
+            //replacing the name label
             NameLabel.Visible = false;
             CustomName = new TextBox();
             CustomName.Name = _name + "-CustomNameBox";
@@ -133,7 +138,24 @@ namespace charBuild
             CustomName.Size = new Size(_nameWidth, 20);
             CustomName.TextAlign = HorizontalAlignment.Center;
             CustomName.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+
+            //creating the delete button
+            DeleteButton = new Button();
+            DeleteButton.Name = _name + "-Delete";
+            DeleteButton.Location=new Point(CostBox.Location.X+_costBoxWidth, CostBox.Location.Y);
+            DeleteButton.Size = new Size(30,20);
+            DeleteButton.Text = "X";
+            DeleteButton.ForeColor = Color.Red;
+
+            DeleteButton.Click += DeleteButton_Click;
+
             _tab.Controls.Add(CustomName);
+            _tab.Controls.Add(DeleteButton);
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
