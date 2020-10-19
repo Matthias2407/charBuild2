@@ -52,9 +52,21 @@ namespace charBuild
 
         private void addSkillButton_Click(object sender, EventArgs e)
         {
-            allRows.Add(new customSkillRow("CustomSkill"+customSkillsNumber.ToString(), new Point(300, customSkillsNumber*20), tabSkills));
+            var temp = new customSkillRow("CustomSkill" + customSkillsNumber.ToString(), new Point(300, customSkillsNumber * 20), tabSkills);
+            temp.customSkillDeleted += customSkillDeleted;
+            allRows.Add(temp);
+
             addSkillButton.Top += 20;
             customSkillsNumber++;
+        }
+
+        private void customSkillDeleted(object sender, EventArgs e)
+        {
+            customSkillRow send = (customSkillRow)sender;
+
+            send.deleteControls(tabSkills);
+
+            customSkillsNumber--;
         }
     }
 }

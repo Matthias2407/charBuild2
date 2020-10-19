@@ -9,6 +9,8 @@ using System.Drawing;
 
 namespace charBuild
 {
+    //event delegate
+    public delegate void Notify(object sender, EventArgs e);
     abstract public class genericRow : Form
     {
 
@@ -18,7 +20,9 @@ namespace charBuild
         protected TextBox WiggleDiceBox { get; set; }
         protected TextBox CostBox { get; set; }
 
-        protected int BaseCost { get; set; }
+        protected Boolean IsDeleted = false;
+
+    protected int BaseCost { get; set; }
         public string RowName { get; private set; }
 
         public genericRow(string _name, Point _location, TabPage _tab, int _baseCost, int _nd=0, int _hd=0, int _wd=0, int _nameWidth=130, int _diceBoxWidth=20, int _costBoxWidth=30)
@@ -122,10 +126,10 @@ namespace charBuild
 
     class customSkillRow : skillRow
     {
-        TextBox CustomName;
-        Button DeleteButton;
-
-        //event notfication
+        private TextBox CustomName;
+        private Button DeleteButton;
+        public event Notify customSkillDeleted;
+      
 
         public customSkillRow(string _name, Point _location, TabPage _tab, int _baseCost = 2, int _nd = 2, int _hd = 0, int _wd = 0, int _nameWidth = 130, int _diceBoxWidth = 20, int _costBoxWidth = 30) : base(_name, _location, _tab, _baseCost, _nd, _hd, _wd, _nameWidth, _diceBoxWidth, _costBoxWidth)
         {
@@ -155,7 +159,26 @@ namespace charBuild
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            
+            customSkillDeleted.Invoke(this, e);
+        }
+
+        public void deleteControls(TabPage _tab)
+        {
+            var toBeMoved = _tab.Controls.OfType<Control>().Where(i=>(i.Location.X>=NameLabel.Location.X)& (i.Location.X <= DeleteButton.Location.X)& (i.Location.Y > NameLabel.Location.Y)); //finds all controlls directly below the deleted one
+            foreach(Control ctrl in toBeMoved)
+            {
+                ctrl.Top -= 20;
+            }
+
+            _tab.Controls.Remove(NameLabel);
+            _tab.Controls.Remove(CustomName);
+            _tab.Controls.Remove(NormalDiceBox);
+            _tab.Controls.Remove(HardDiceBox);
+            _tab.Controls.Remove(WiggleDiceBox);
+            _tab.Controls.Remove(CostBox);
+            _tab.Controls.Remove(DeleteButton);
+
+            IsDeleted = true;
         }
     }
 }
