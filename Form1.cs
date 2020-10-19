@@ -13,7 +13,8 @@ namespace charBuild
     public partial class Form1 : Form
     {
         readonly string[] AttributeNames = { "Body", "Coordination", "Sense", "Mind", "Charm", "Command" };
-        readonly string[] SkillNames = { "Athletics", "Block", "Brawling", "Endurance", "Melee Weapon (Type)", "Dodge", "Driving (Type)", "Ranged Weapon (Type)", "Stealth", "Empathy ", "Scrutiny", "Perception", "First Aid", "Research", "Knowledge (Type)", "Security Systems", "Language (Type)", "Streetwise", "Medicine", "Survival", "Navigation", "Tactics", "Lie", "Performance (Type)", "Persuasion", "Interrogation ", "Stability", "Intimidation", "Leadership" };
+        readonly string[] SkillNames = { "Athletics", "Block", "Brawling", "Endurance",  "Dodge",  "Stealth", "Empathy ", "Scrutiny", "Perception", "First Aid", "Research", "Security Systems", "Streetwise", "Medicine", "Survival", "Navigation", "Tactics", "Lie", "Persuasion", "Interrogation ", "Stability", "Intimidation", "Leadership" };
+        readonly string[] CustomSkillNames = { "Melee Weapon (Type)", "Driving (Type)", "Ranged Weapon (Type)", "Knowledge (Type)", "Language (Type)", "Performance (Type)" };
 
         List<genericRow> allRows=new List<genericRow>();
         int customSkillsNumber = 0;
@@ -46,7 +47,17 @@ namespace charBuild
                     offset += 20;
                 }
 
-                addSkillButton.Location = new Point(300,0);
+                offset = 0;
+                foreach (string Skill in CustomSkillNames)
+                {
+                    var temp = new customSkillRow(Skill, new Point(300, offset), tabSkills);
+                    temp.customSkillDeleted += customSkillDeleted;
+                    allRows.Add(temp);
+                    customSkillsNumber++;
+                    offset += 20;
+                }
+
+                addSkillButton.Location = new Point(300,offset);
             }
         }
 
