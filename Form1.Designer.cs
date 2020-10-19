@@ -108,7 +108,7 @@
             // 
             this.addSkillButton.Location = new System.Drawing.Point(0, 0);
             this.addSkillButton.Name = "addSkillButton";
-            this.addSkillButton.Size = new System.Drawing.Size(232, 29);
+            this.addSkillButton.Size = new System.Drawing.Size(250, 29);
             this.addSkillButton.TabIndex = 0;
             this.addSkillButton.Text = "Add New";
             this.addSkillButton.UseVisualStyleBackColor = true;

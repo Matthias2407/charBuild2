@@ -26,12 +26,13 @@ namespace charBuild
             //setting object variables
             BaseCost = _baseCost;
             RowName = _name;
+            var scrollOffset = _tab.AutoScrollPosition; //makes sure the location of the controls is measured from the top and not the current scroll position
             //creating controls
             NameLabel = new Label();
             NameLabel.Visible = true;
             NameLabel.Name = _name + "-NameLabel";
             NameLabel.Text = _name;
-            NameLabel.Location =_location;
+            NameLabel.Location =new Point(_location.X+scrollOffset.X,_location.Y+scrollOffset.Y);
 
             NameLabel.AutoSize = true;
             NameLabel.Anchor = AnchorStyles.Left|AnchorStyles.Top;
@@ -125,6 +126,14 @@ namespace charBuild
         public customSkillRow(string _name, Point _location, TabPage _tab, int _baseCost = 2, int _nd = 2, int _hd = 0, int _wd = 0, int _nameWidth = 130, int _diceBoxWidth = 20, int _costBoxWidth = 30) : base(_name, _location, _tab, _baseCost, _nd, _hd, _wd, _nameWidth, _diceBoxWidth, _costBoxWidth)
         {
             NameLabel.Visible = false;
+            CustomName = new TextBox();
+            CustomName.Name = _name + "-CustomNameBox";
+            CustomName.Text = _name;
+            CustomName.Location = new Point(NameLabel.Location.X, NameLabel.Location.Y);
+            CustomName.Size = new Size(_nameWidth, 20);
+            CustomName.TextAlign = HorizontalAlignment.Center;
+            CustomName.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+            _tab.Controls.Add(CustomName);
         }
     }
 }

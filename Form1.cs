@@ -16,6 +16,7 @@ namespace charBuild
         readonly string[] SkillNames = { "Athletics", "Block", "Brawling", "Endurance", "Melee Weapon (Type)", "Dodge", "Driving (Type)", "Ranged Weapon (Type)", "Stealth", "Empathy ", "Scrutiny", "Perception", "First Aid", "Research", "Knowledge (Type)", "Security Systems", "Language (Type)", "Streetwise", "Medicine", "Survival", "Navigation", "Tactics", "Lie", "Performance (Type)", "Persuasion", "Interrogation ", "Stability", "Intimidation", "Leadership" };
 
         List<genericRow> allRows=new List<genericRow>();
+        int customSkillsNumber = 0;
 
         public Form1()
         {
@@ -45,13 +46,15 @@ namespace charBuild
                     offset += 20;
                 }
 
-                addSkillButton.Location = new Point(0, offset);
+                addSkillButton.Location = new Point(300,0);
             }
         }
 
         private void addSkillButton_Click(object sender, EventArgs e)
         {
-            allRows.Add(new customSkillRow("custom", new Point(300, 0), tabSkills));
+            allRows.Add(new customSkillRow("CustomSkill"+customSkillsNumber.ToString(), new Point(300, customSkillsNumber*20), tabSkills));
+            addSkillButton.Top += 20;
+            customSkillsNumber++;
         }
     }
 }
