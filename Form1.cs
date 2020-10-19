@@ -51,7 +51,7 @@ namespace charBuild
 
         private void addSkillButton_Click(object sender, EventArgs e)
         {
-            allRows.Add(new abilityRow("custom", new Point(300, 0), tabSkills));
+            allRows.Add(new customSkillRow("custom", new Point(300, 0), tabSkills));
         }
     }
 }

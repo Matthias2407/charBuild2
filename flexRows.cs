@@ -28,9 +28,10 @@ namespace charBuild
             RowName = _name;
             //creating controls
             NameLabel = new Label();
+            NameLabel.Visible = true;
             NameLabel.Name = _name + "-NameLabel";
             NameLabel.Text = _name;
-            NameLabel.Location = _location;
+            NameLabel.Location =_location;
 
             NameLabel.AutoSize = true;
             NameLabel.Anchor = AnchorStyles.Left|AnchorStyles.Top;
@@ -75,7 +76,7 @@ namespace charBuild
 
             //adding created controls to the tab
 
-         
+            _tab.Controls.Add(NameLabel);
             _tab.Controls.Add(NormalDiceBox);
             _tab.Controls.Add(HardDiceBox);
             _tab.Controls.Add(WiggleDiceBox);
